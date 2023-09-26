@@ -1,0 +1,37 @@
+#+title: readhdr: A nice wrapper for your pager to read C header files
+~readhdr~, as the title says, is a wrapper written in POSIX-compliant shell
+script for your pager program to read
+** Reasoning
+Sometimes you just need to read a C header file (I know I have to ) to see what's
+located in it (what is being defined there, the prototype of a function), but
+after a while, typing ~less /usr/include~ becomes a bit cumbersome. Luckily, I
+wrote a wrapper shell script that does it for you!
+
+** Examples
+Let's say you write a C program with:
+#+begin_example
+#include <stdio.h>
+#+end_example
+In order to view the contents of this header file with ~readhdr~, all you have
+to do is this:
+#+begin_example
+readhdr stdio.h
+#+end_example
+Then it launches the program defined in the environment variable ~PAGER~
+(defaults to ~less~), and you can read through the header file. To override the
+default pager, set the ~PAGER~ variable to whatever pager program you want to
+use. For example, this will launch ~more~ instead of ~less~:
+#+begin_example
+PAGER=more readhdr stdio.h
+#+end_example
+If you want to override the default include directory, set the ~INCLUDE_DIR~
+variable:
+#+begin_example
+INCLUDE_DIR=../include readhdr foo.h
+#+end_example
+And of course you can combine the two:
+#+begin_example
+PAGER=more INCLUDE_DIR=../include readhdr foo.h
+#+end_example
+** License
+~readhdr~ is licensed under the MIT license, as included in the LICENSE file.

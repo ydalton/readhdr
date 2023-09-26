@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Copyright (c) 2023 ydalton
+#
+# readhdr: A nice little wrapper for less (or what pager have you) used for 
+# reading C header files.
+
+INVOKED_NAME=$0
+
+# set defaults if these variables aren't set
+[ -z $PAGER ] && PAGER=/usr/bin/less
+[ -z $INCLUDE_DIR ] && INCLUDE_DIR=/usr/include
+
+usage() {
+	echo "usage: $(basename $INVOKED_NAME) FILE"
+	echo "Read FILE located in $INCLUDE_DIR."
+	exit 1
+}
+
+[ "$1" = "--help" ] && usage
+
+FILE_NAME=$1
+ARGC=$#
+
+# there must be exactly two arguments
+[ $ARGC -ne 1 ] && usage
+
+exec $PAGER $INCLUDE_DIR/$FILE_NAME
+
+exit 0
