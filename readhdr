@@ -12,18 +12,27 @@ INVOKED_NAME=$0
 [ -z $INCLUDE_DIR ] && INCLUDE_DIR=/usr/include
 
 usage() {
-	echo "usage: $(basename $INVOKED_NAME) FILE"
-	echo "Read FILE located in $INCLUDE_DIR."
+	echo "usage: $(basename $INVOKED_NAME) FILE [PATTERN]"
+	echo "Read FILE and located in $INCLUDE_DIR."
+	echo "If PATTERN is specified, search in FILE for PATTERN."
 	exit 1
 }
 
+ARGC=$#
+[ $ARGC -lt 1 ] && usage
 [ "$1" = "--help" ] && usage
 
 FILE_NAME=$1
-ARGC=$#
 
-# there must be exactly two arguments
-[ $ARGC -ne 1 ] && usage
+[ $ARGC -gt 2 ] && usage
+
+PATTERN=$2
+
+if [ ! -z $PATTERN ]; then
+	# FIXME: this line is specific to less, make this more general to
+	# different pagers
+	PAGER="$PAGER -p $PATTERN"
+fi
 
 exec $PAGER $INCLUDE_DIR/$FILE_NAME
 

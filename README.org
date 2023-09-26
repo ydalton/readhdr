@@ -1,11 +1,12 @@
 #+title: readhdr: A nice wrapper for your pager to read C header files
 ~readhdr~, as the title says, is a wrapper written in POSIX-compliant shell
-script for your pager program to read
+script for your pager program to read a file (typically a C header file) located
+in the ~/usr/include~ directory. It also allows you to search within that file.
 ** Reasoning
-Sometimes you just need to read a C header file (I know I have to ) to see what's
-located in it (what is being defined there, the prototype of a function), but
-after a while, typing ~less /usr/include~ becomes a bit cumbersome. Luckily, I
-wrote a wrapper shell script that does it for you!
+Sometimes you just need to read a C header file (I know I have to ) to see
+what's located in it (what is being defined there, the prototype of a function),
+but after a while, typing ~less /usr/include~ becomes a bit cumbersome. Luckily,
+I wrote a wrapper shell script that does it for you!
 
 ** Examples
 Let's say you write a C program with:
@@ -32,6 +33,11 @@ INCLUDE_DIR=../include readhdr foo.h
 And of course you can combine the two:
 #+begin_example
 PAGER=more INCLUDE_DIR=../include readhdr foo.h
+#+end_example
+If you want to search for a pattern in that header file: for example, you want
+to search for the word ~printf~:
+#+begin_example
+readhdr stdio.h printf
 #+end_example
 ** License
 ~readhdr~ is licensed under the MIT license, as included in the LICENSE file.
