@@ -14,7 +14,7 @@ INVOKED_NAME=$0
 usage() {
 	echo "usage: $(basename $INVOKED_NAME) FILE [PATTERN]"
 	echo "Read FILE and located in $INCLUDE_DIR."
-	echo "If PATTERN is specified, search in FILE for PATTERN."
+	echo "If PATTERN is specified, search for PATTERN in FILE."
 	exit 1
 }
 
